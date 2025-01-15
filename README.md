@@ -1,7 +1,10 @@
-# Desafio Tekeat
+# Desafio takeat
 
 ## Descrição
-
+Projeto FullStack usando:
+Backend -> NodeJs, Sequelize  
+Banco de Dados -> Posgres e Redis  
+Frontend -> Vite ReactJS  
 
 ## Pré-requisitos
 
@@ -58,8 +61,9 @@ Este projeto também utiliza o **Redis** para armazenamento em cache ou outras f
 
    O Redis deve responder com `PONG`.
 
-4. **Instale o Redis no Docker**
-  Caso esteja usando um ambiente com DOcker basta instalar o Redis nele, execute o comando:
+4. **Inicialização com Docker**  
+   Caso esteja usando um ambiente com DOcker basta instalar o Redis nele, execute o comando:
+  
    ```bash
    docker run -d --name redis -p 6379:6379 redis  
    ```
@@ -160,6 +164,10 @@ Clone este repositório:
    ```
 
 2. O projeto estará disponível em: [http://localhost:5173](http://localhost:5173)
+
+4. Para acessar um cardápio devera usar a rota:  
+   [http://localhost:5173/takeat/cardapio/{username do restaurante}](http://localhost:5173)
+
 
 
 
