@@ -54,7 +54,7 @@ export const CardapioPage: React.FC = () => {
       <Grid container spacing={2} sx={{ padding: 2 }}>
         {menuData.length > 0 ? (
           menuData.map((item: MenuItem) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid item xs={12} sm={12} md={6} key={item.id}>
               <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 'bold' }}>

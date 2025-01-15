@@ -6,6 +6,7 @@ import Layout from './Layout';
 import NotFound from './pages/NotFound/NotFound';
 import CartPage from './pages/CartPage/Cart';
 import HelpPage from './pages/Help/HelpPage';
+import ConfirmationPage from './pages/Confirmation/ConfirmationPage';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route element={<LayoutWrapper />}>
               <Route path="/takeat/cardapio/:restaurantName" element={<CardapioPage />} />
               <Route path="/takeat/help" element={<HelpPage />} />
+              <Route path="/takeat/confirmation" element={<ConfirmationPage />} />
             </Route>
 
             {/* Rotas sem Layout */}
@@ -34,6 +36,7 @@ const LayoutWrapper = () => (
     <Routes>
       <Route path="/takeat/cardapio/:restaurantName" element={<CardapioPage />} />
       <Route path="/takeat/help" element={<HelpPage />} />
+      <Route path="/takeat/confirmation" element={<ConfirmationPage />} />
     </Routes>
   </Layout>
 );

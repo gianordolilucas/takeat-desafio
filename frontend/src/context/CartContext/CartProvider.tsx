@@ -55,7 +55,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const responses = await Promise.all(orderPromises);
       setCart([]);
-      navigate('/confirmation');
+      navigate('/takeat/confirmation');
       return responses;
     } catch (err) {
       setError('Erro ao salvar pedidos');

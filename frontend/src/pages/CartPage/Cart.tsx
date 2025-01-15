@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Button,
-  TextField,
   Typography,
   List,
   ListItem,
@@ -10,14 +9,13 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
-import { Add, Remove, Delete, ArrowBack, PersonAdd } from "@mui/icons-material";
+import { Add, Remove, Delete, ArrowBack } from "@mui/icons-material";
 import { MenuContext } from "../../context/MenuContext/MenuContext";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
-import ModalBuyer from "../../components/Buyer/Modal";
+import BuyerEditor from "../../components/Buyer/Modal";
 
 const CartPage: React.FC = () => {
-  const [ModalBuyerOpen, setModalBuyerOpen] = useState(false);
   const navigate = useNavigate();
 
   const menuContext = useContext(MenuContext);
@@ -26,7 +24,7 @@ const CartPage: React.FC = () => {
   if (!context) return <Typography>Erro ao carregar o carrinho</Typography>;
   if (!menuContext) return <Typography>Erro ao carregar o menu</Typography>;
 
-  const { cart, setCartBuyer, addToCart, removeFromCart, buyer } = context;
+  const { cart, setCartBuyer, addToCart, removeFromCart, saveOrder,  buyer } = context;
 
   const handleSaveBuyerInfo = ({buyerName, buyerPhone}:{buyerName: string, buyerPhone: string}) => {
     setCartBuyer({ name: buyerName, phone: buyerPhone });
@@ -36,6 +34,15 @@ const CartPage: React.FC = () => {
     (sum, item) => sum + item.value * item.amount,
     0
   );
+
+  const handleSaveOrder = () => {
+    if(buyer?.phone && menuContext.restaurant?.username){
+      saveOrder(menuContext.restaurant?.username);
+    }else {
+      alert("O número do cliente deve ser preenchido");
+
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -57,28 +64,13 @@ const CartPage: React.FC = () => {
         <Typography  variant="h6" gutterBottom>
           Dados do cliente
         </Typography>
-      <Button 
-        variant="contained" 
-        color="primary" 
-        onClick={()=>{setModalBuyerOpen(true)}} 
-        sx={{ marginBottom: 3 }}
-      ><PersonAdd /></Button>
       </Box>
-
-      <Box sx={{ display: "flex", flexDirection: 'column', gap: 2, marginBottom: 3 }}>
-        <TextField
-          label="Nome (opicional)"
-          fullWidth
-          value={buyer?.name}
-          disabled={true}
-        />
-        <TextField
-          label="Telefone*"
-          fullWidth
-          value={buyer?.phone}
-          disabled={true}
-        />
-      </Box>
+      
+      <BuyerEditor 
+        buyerName={buyer?.name} 
+        buyerPhone={buyer?.phone}
+        handleSaveBuyer={handleSaveBuyerInfo} 
+      />
 
       <Divider sx={{ marginY: 2 }} />
 
@@ -122,15 +114,11 @@ const CartPage: React.FC = () => {
         fullWidth 
         sx={{ marginTop: 3 }} 
         disabled={cart.length === 0}
+        onClick={handleSaveOrder}
       >
         Realizar Pedido
       </Button>
       
-      <ModalBuyer 
-        open={ModalBuyerOpen} 
-        onClose={()=>{setModalBuyerOpen(false)}} 
-        handleSaveBuyer={handleSaveBuyerInfo} 
-      />
     </Box>
   );
 };

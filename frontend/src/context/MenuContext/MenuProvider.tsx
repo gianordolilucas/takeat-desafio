@@ -25,7 +25,7 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
     };
     fetchMenu();
-  }, [navigate, restaurant?.username]);
+  }, [restaurant?.username]);
 
   const searchMenuItem = (name: string) => {
     const filteredItems = menuData.filter((item) =>
