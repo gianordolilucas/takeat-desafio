@@ -1,0 +1,61 @@
+services:
+  # Serviço do banco de dados PostgreSQL
+  db:
+    image: postgres:latest
+    container_name: psql_db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminpassword
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  # Serviço do Redis
+  redis:
+    image: redis:latest
+    container_name: redis_db
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  # Serviço do Backend
+  backend:
+    build:
+      context: ./backend
+    container_name: backend_service
+    environment:
+      - DATABASE_URL=postgres://admin:adminpassword@db:5432/mydatabase
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    command: |
+      sh -c "npm run migrate && npm run seed && npm start"
+    networks:
+      - backend
+
+  # Serviço do Frontend
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend_service
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - backend
+
+volumes:
+  psql_data:
+
+networks:
+  backend:
+    driver: bridge

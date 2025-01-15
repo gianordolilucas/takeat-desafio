@@ -1,0 +1,30 @@
+#root {
+  max-width: 410px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  overflow: hidden;
+}
+
+.card {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Foco no mobile */
+@media screen and (max-width: 600px) {
+  #root {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .logo {
+    height: 4em;
+  }
+}
